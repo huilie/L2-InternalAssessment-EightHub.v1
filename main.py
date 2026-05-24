@@ -1,10 +1,35 @@
-import flask
-from flask import Flask
+from flask import Flask, remder_template
 
 app = Flask (__name___)
 
-@app.root("/")
-def 
+@app.route("/")
+def index():
+    return remder_template("/index.html")
+
+@app.route("/homepage")
+def homepage():
+    return remder_template("/homepage.html")
 
 
-# https://www.runoob.com/flask/flask-tutorial.html
+@app.route("/account-create")
+def account_create():
+    return remder_template("/account-create.html")
+
+@app.route("/resources")
+def resources():
+    return remder_template("/resources.html")
+
+@app.route("/post")
+def post():
+    return remder_template("/postpage.html")
+
+@app.route("/subjectpick")
+def subjectpick():
+    return remder_template("/subjectpick-main.html")
+
+
+
+
+if __name__ == "__main__":
+    '''if t'''
+    app.run(debug=True)
