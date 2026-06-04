@@ -1,0 +1,14 @@
+@font-face {
+    font-family: SN pro;
+    src: url(./font/SN_Pro/SNPro-VariableFont_wght.ttf);
+}
+
+body {
+    font-family: SN pro;
+    background-color: rgb(244, 236, 225);
+}
+
+.create_account_topic{
+    color: rgb();
+}
+

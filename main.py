@@ -4,28 +4,28 @@ app = Flask (__name___)
 
 @app.route("/")
 def index():
-    return remder_template("/index.html")
+    return remder_template("index.html")
 
 @app.route("/homepage")
 def homepage():
-    return remder_template("/homepage.html")
+    return remder_template("homepage.html")
 
 
 @app.route("/account-create")
 def account_create():
-    return remder_template("/account-create.html")
+    return remder_template("account-create.html")
 
 @app.route("/resources")
 def resources():
-    return remder_template("/resources.html")
+    return remder_template("resources.html")
 
 @app.route("/post")
 def post():
-    return remder_template("/postpage.html")
+    return remder_template("postpage.html")
 
 @app.route("/subjectpick")
 def subjectpick():
-    return remder_template("/subjectpick-main.html")
+    return remder_template("subjectpick-main.html")
 
 
 
