@@ -9,6 +9,17 @@ body {
 }
 
 .create_account_topic{
-    color: rgb();
+    color: rgb(3, 41, 76);
+}
+.create_account_backgroundimg{
+    text-align: center;
+    width: 1000px;
+}
+
+.create_account_logo-1{
+    width: 400px;
+}
+.create_account_logo-2{
+    width: 500px;
 }
 
