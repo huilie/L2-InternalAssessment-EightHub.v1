@@ -3,23 +3,31 @@
     src: url(./font/SN_Pro/SNPro-VariableFont_wght.ttf);
 }
 
+:root{
+    --background: #F4ECE1;
+    --blue: #03294C;
+    --orange: #FB7E0A;
+
+}
+
 body {
     font-family: SN pro;
     background-color: rgb(244, 236, 225);
 }
 
+
 .create_account_topic{
-    color: rgb(3, 41, 76);
+    color: var(--background);
 }
 .create_account_backgroundimg{
     text-align: center;
-    width: 1000px;
+    width: 10%;
+}
+.create_account_logo-1{
+    width: 500px;
 }
 
-.create_account_logo-1{
-    width: 400px;
-}
 .create_account_logo-2{
-    width: 500px;
+    width: 400px;
 }
 
