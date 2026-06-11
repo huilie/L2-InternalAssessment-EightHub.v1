@@ -3,29 +3,30 @@ from flask import Flask, render_template
 app = Flask (__name__)
 
 @app.route("/")
-def index():
-    return remder_template("index.html")
+def home():
+    return render_template("index.html")
+
+
 
 @app.route("/homepage")
 def homepage():
-    return remder_template("homepage.html")
-
+    return render_template("homepage.html")
 
 @app.route("/account-create")
 def account_create():
-    return remder_template("account-create.html")
+    return render_template("account-create.html")
 
 @app.route("/resources")
 def resources():
-    return remder_template("resources.html")
+    return render_template("resources.html")
 
 @app.route("/post")
 def post():
-    return remder_template("postpage.html")
+    return render_template("postpage.html")
 
 @app.route("/subjectpick")
 def subjectpick():
-    return remder_template("subjectpick-main.html")
+    return render_template("subjectpick-main.html")
 
 
 
