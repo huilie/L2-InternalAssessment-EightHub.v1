@@ -1,5 +1,9 @@
 from imports import *
 
+# con = rjfweurheuw9rje
+# cur = con.cursor()
+
+# cur.execute("SQL CODE")
 
 @app.route("/")
 def index():
@@ -11,7 +15,11 @@ def homepage():
     return render_template("homepage.html")
 
 @app.route("/account-create")
+# @app.route("/account-create", ['GET', 'POST'])
 def account_create():
+    # if request.method == "POST":
+    #     if 'password-name' in request.form:
+            
     return render_template("account-create.html")
 
 @app.route("/resources")
@@ -31,4 +39,4 @@ def subjectpick():
 
 if __name__ == "__main__":
     '''if t'''
-    app.run(debug=True)
+    app.run(debug=True, port=1234)

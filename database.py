@@ -1,4 +1,4 @@
-import sqlite3
+from imports import *
 
 '''link the database and python files'''
 account-p_connection = sqlite3.connect(
