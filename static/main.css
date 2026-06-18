@@ -37,6 +37,13 @@ header{
     left: 25%;
     position: absolute;
 }
+.sceondary_topic{
+    color: var(--blue);
+    font-size: 200%;
+    top: 45%;
+    left: 30%;
+    position: absolute;
+}
 .create_account_background-img{
     background-image: url("/static/image/account-img/account-background.svg");
     background-repeat: no-repeat;
@@ -80,9 +87,39 @@ header{
     background-repeat: no-repeat;
 
 } */
+___________________________________________
 
-.create_account_input-1{
-        text-align: center;
+.create_account_input-1 {
+    text-align: center;
+
 }
 
+.create_account_input-1 input[type="text"] {
+    padding: 15px 25px;
+    font-size: 1.2rem;
+    width: 350px;
+    border: 2px solid var(--blue);
+    border-radius: 8px;
+    outline: none;
+    box-shadow: 0 2px 4px
+
+}
+
+.create_account_input-1 input[type="submit"] {
+    margin-top: 20vh; 
+    margin-right: 5%;
+    padding: 12px 40px;
+    font-size: 1rem;
+    background-color: var(--orange);
+    color: white;
+    border: 2px solid var(--blue);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s
+      ease;
+}
+
+.create_account_input-1 input[type="submit"]:hover {
+    background-color: var(--orange);
+}
 
