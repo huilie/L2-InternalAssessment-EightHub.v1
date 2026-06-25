@@ -95,19 +95,19 @@ ___________________________________________
 }
 
 .create_account_input-1 input[type="text"] {
-    padding: 15px 25px;
+    padding: 10px 30px;
     font-size: 1.2rem;
     width: 350px;
     border: 2px solid var(--blue);
-    border-radius: 8px;
+    border-radius: 10px;
     outline: none;
     box-shadow: 0 2px 4px
 
 }
 
 .create_account_input-1 input[type="submit"] {
-    margin-top: 20vh; 
-    margin-right: 5%;
+    /* margin-top: -20vh; 
+    margin-right: 5%; */
     padding: 12px 40px;
     font-size: 1rem;
     background-color: var(--orange);
