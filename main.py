@@ -6,10 +6,6 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/homepage")
-def homepage():
-    return render_template("homepage.html")
-
 @app.route("/account_create", methods=['GET', 'POST'])
 def account_create():
     # if request.method == "POST":
@@ -31,15 +27,35 @@ def account_create():
 
 #加一个使用“-”的命名错误并改为“_”
 
-        return redirect(url_for('account_create-password'))
+
+        return redirect(url_for('account_create_password'))
     return render_template("account_create.html")
-
-
-# {asdf--
 
 @app.route("/account_create-password")
 def account_create_password():
+    if request.method == "POST":
+        if 'account_password' in request.form:
+            input_password = request.form.get('account_password')
+            conaccounts = sqlite3.connect('database/account_password.db')
+            accountscursor = conaccounts.suror()
+            accountscursor.execute(
+                "INSERT INTO accountinfo (accountemail, accountpassword) VALUES(?,?)", 
+                (input_password) 
+            )
+            conaccounts.commit()
+            conaccounts.close()
+
+
     return render_template('account_create_password.html')
+
+
+@app.route("/homepage")
+def homepage():
+    return render_template("homepage.html")
+
+# {asdf--
+
+
 
 @app.route("/resources")
 def resources():
