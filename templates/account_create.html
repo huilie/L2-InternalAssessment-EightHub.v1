@@ -33,16 +33,23 @@
   </head>
   <body>
     <header>
-        <h1 class="create_account_topic">Create account</h1>
-        <h2 class="sceondary_topic">input your email address</h2>
-        <div class="create_account_background-img"></div>
-        <div class="create_account_logo-1"></div>
-        <div class="create_account_logo-2"></div>
+      <h1 class="create_account_topic">Create account</h1>
+      <h2 class="sceondary_topic">input your email address</h2>
+      <div class="create_account_background-img"></div>
+      <div class="create_account_logo-1"></div>
+      <div class="create_account_logo-2"></div>
     </header>
     <main>
       <form method="POST" action="/account_create" class="create_account_input-1">
-        <input type="text" name="account_name" placeholder="Pls awdawd" value="">
-        <input type="submit" value="Next" name="submit">
+        <div>
+          <input type="text" name="account_name" placeholder="Pls awdawd" value="">
+        </div>
+        <div>
+          <input type="submit" value="Next" name="submit">
+        </div>
+        <div>
+          <input type="submit" value="Back" name="Back">
+        </div>
       </form>
     </main>
   </body>

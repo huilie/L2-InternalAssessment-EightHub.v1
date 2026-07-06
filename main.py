@@ -42,6 +42,7 @@ def account_create_password():
                 "INSERT INTO accountinfo (accountemail, accountpassword) VALUES(?,?)", 
                 (input_password) 
             )
+            
             conaccounts.commit()
             conaccounts.close()
 
