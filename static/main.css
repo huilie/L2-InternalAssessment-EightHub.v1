@@ -35,12 +35,12 @@ ul{
     list-style-type: none;
     overflow: hidden;
     margin: 0;
-    padding: 0;
+    padding: 1;
     background-color: var(--blue);
 }
 
 ul li{
-    float: left;
+    float: right;
 }
 
 ul li a{
@@ -48,7 +48,10 @@ ul li a{
     display: block;
     color: var(--background);
     text-align: center;
-    padding: 14px 16px;
+    padding: 19px 21px;
+}
+ul li.tag_left{
+    float: left;
 }
 
 ul li a:hover{
@@ -56,6 +59,13 @@ ul li a:hover{
     background-color: var(--orange);
 }
 
+/* @media screen and (max-width: 600px) {
+  ul.topnav li.right, 
+  ul.topnav li {float: none;}
+} 
+在不同屏幕下的图形变化，可用在testing
+https://www.w3schools.com/css/tryit.asp?filename=trycss_navbar_horizontal_responsive 
+*/
 
 
 
@@ -120,13 +130,41 @@ ul li a:hover{
 
 } */
 ___________________________________________
-
+ 
 .create_account_input-1 {
-    text-align: center;
-
+    padding: 10px 30px;
+    font-size: 1.2rem;
+    width: 350px;
+    border: 2px solid var(--blue);
+    border-radius: 10px;
+    outline: none;
+    box-shadow: 0 2px 4px
 }
 
-.create_account_input-1 input[type="text"] {
+.submit-1{
+    padding: 12px 40px;
+    font-size: 1rem;
+    background-color: var(--orange);
+    color: white;
+    border: 2px solid var(--blue);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+.back-1{
+    padding: 12px 40px;
+    font-size: 1rem;
+    background-color: var(--orange);
+    color: white;
+    border: 2px solid var(--blue);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* .create_account_input-1 input[type="text"] {
     padding: 10px 30px;
     font-size: 1.2rem;
     width: 350px;
@@ -138,8 +176,6 @@ ___________________________________________
 }
 
 .create_account_input-1 input[type="submit"] {
-    /* margin-top: -20vh; 
-    margin-right: 5%; */
     padding: 12px 40px;
     font-size: 1rem;
     background-color: var(--orange);
@@ -153,5 +189,5 @@ ___________________________________________
 
 .create_account_input-1 input[type="submit"]:hover {
     background-color: var(--orange);
-}
+} */
 

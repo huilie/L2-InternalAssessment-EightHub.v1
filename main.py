@@ -16,8 +16,6 @@ def account_create():
             input_password = request.form.get('account_password')
             conaccounts = sqlite3.connect('database/account_password.db') # 将指定的数据库连接到 Python 变量
             accountscursor = conaccounts.cursor() # 将 Python 变量指定为数据库的“游标”
-            # accountscursor.execute("SELECT * FROM accountinfo") # 要运行 SQL 代码并从数据库中收集特定信息，请使用 `(游标名称).execute(FROM (数据库) (此处填写 SQL 代码))`
-            # allaccinfo = accountscursor.fetchall() # 这将收集 SQL 命令返回的所有信息(搜集信息)
             accountscursor.execute(
                 "INSERT INTO accountinfo (accountemail, accountpassword) VALUES(?,?)", 
                 (input_name, input_password) 
