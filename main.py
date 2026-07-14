@@ -23,8 +23,12 @@ def account_create_password():
         if 'account_password' in request.form:
             input_password = request.form.get('account_password')
             input_name = session.get("input_name")
+            ensure_input_password = request.form.get('ensure_account_password')
+            if ensure_input_password != input_name:
+                return
+
             conaccounts = sqlite3.connect('database/account_password.db')
-            accountscursor = conaccounts.suror()
+            accountscursor = conaccounts.cursor()
             accountscursor.execute(
                 "INSERT INTO accountinfo (accountemail, accountpassword) VALUES(?,?)", 
                 (input_name, input_password) 
