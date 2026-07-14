@@ -42,8 +42,15 @@
     <main>
       <form method="POST" action="/account_create">
         <input class="create_account_input-1" type="text" name="account_name" placeholder="Pls awdawd" value=""> <!-- required 用户必须填写这个输入框，否则浏览器不会允许提交表单 -->
-        <button class="submit-1" type="submit" value="Next" name="submit">submit</button>
-        <button class="back-1" type="submit" value="Back" name="back">Back</button>
+        {% if create_password_error %}
+        <p class="error_text">{{create_password_error}}</p>
+        {% endif %}
+        <button class="submit-1" type="submit" value="Next" name="submit">
+          submit
+        </button>
+        <button class="back-1" type="submit" value="Back" name="back">
+          Back
+        </button>
       </form>
     </main>
   </body>
