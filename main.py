@@ -25,7 +25,10 @@ def account_create_password():
             input_name = session.get("input_name")
             ensure_input_password = request.form.get('ensure_account_password')
             if ensure_input_password != input_name:
-                return
+                return render_template(
+                    "account_create_password.html",
+                    error="Your password is trash"
+                    )
 
             conaccounts = sqlite3.connect('database/account_password.db')
             accountscursor = conaccounts.cursor()
