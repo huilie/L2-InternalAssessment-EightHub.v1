@@ -18,34 +18,31 @@
                        `=---='
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-         GET EXCELLENCE      GET EXCELLENCE
+         NO BUG FOREVER      GET EXCELLENCE
                                                   -->
+
 
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> 
+    <title>
       Eighthub | Introduction
     </title>
     <link rel="stylesheet" href="/static/main.css">
   </head>
   <body>
     <header>
-        <h1 class="create_account_topic">Create account</h1>
-        <h2 class="sceondary_topic">Please input your possword</h2>
-        <h2 class="sceondary_topic">Ensure your possword</h2>
-        <h3>your password is wrong</h3>
-        <div class="create_account_background-img"></div>
-        <div class="create_account_logo-1"></div>
-        <div class="create_account_logo-2"></div>
+      <Ul>
+        <li><a href="{{ url_for('subjectpick')}}">Subject choose</a></li>
+        <li><a href="{{ url_for('post')}}">Post page</a></li>
+        <li><a href="{{ url_for('resources')}}">Review all resources</a></li>
+        <li class="tag_left"><a href="{{ url_for('homepage')}}">Home Page</a></li>
+      </Ul>
     </header>
     <main>
-      <form method="POST" action="{{url_for('account_create_password')}}" class="create_account_input-1">
-        <input type="password" name="account_password" placeholder="" value="">
-        <input type="password" name="ensure_account_password" placeholder="" value="">
-        <button type="submit" name="submit">submit</button>
+      <form method="POST" action="{{url_for('subjectpick')}}">
       </form>
     </main>
   </body>

@@ -22,6 +22,7 @@
                                                   -->
 
 
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -33,11 +34,15 @@
   </head>
   <body>
     <header>
-
+      <Ul>
+        <li><a href="{{ url_for('subjectpick')}}">Subject choose</a></li>
+        <li><a href="{{ url_for('post')}}">Post page</a></li>
+        <li><a href="{{ url_for('resources')}}">Review all resources</a></li>
+        <li class="tag_left"><a href="{{ url_for('homepage')}}">Home Page</a></li>
+      </Ul>
     </header>
     <main>
-
     </main>
   </body>
-
 </html>
+

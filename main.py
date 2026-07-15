@@ -57,21 +57,57 @@ def account_create_password():
     return render_template('account_create_password.html')
 
 
-@app.route("/homepage")
+@app.route("/homepage", methods=['GET', 'POST'])
 def homepage():
     return render_template("homepage.html")
 
-@app.route("/resources")
+@app.route("/resources", methods=['GET', 'POST'])
 def resources():
     return render_template("resources.html")
 
-@app.route("/post")
+@app.route("/post", methods=['GET', 'POST'])
 def post():
     return render_template("postpage.html")
 
-@app.route("/subjectpick")
+
+
+
+
+
+
+
+@app.route("/subjectpick", methods=['GET','POST'])
 def subjectpick():
+    if request.method == "POST":
+        if "l1maths" in request.form:
+            return render_template("subjectpick_unity_mathsl1.html")
+        if "l2maths" in request.form:
+            return render_template("subjectpick_unity_mathsl2.html")
+        if "l3maths" in request.form:
+            return render_template("subjectpick_unity_mathsl3.html")
     return render_template("subjectpick_main.html")
+
+
+
+
+
+
+@app.route("/subjectpick_unity_mathsl1", methods=['GET', 'POST'])
+def subjectpick_unity_mathsl1():
+    return render_template("subjectpick_unity_mathsl1.html")
+
+
+
+@app.route("/subjectpick_unity_mathsl2", methods=['GET', 'POST'])
+def subjectpick_unity_mathsl2():
+    return render_template("subjectpick_unity_mathsl2.html")
+
+
+
+@app.route("/subjectpick_unity_mathsl3", methods=['GET', 'POST'])
+def subjectpick_unity_mathsl3():
+    return render_template("subjectpick_unity_mathsl3.html")
+
 
 
 

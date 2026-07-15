@@ -22,6 +22,7 @@
                                                   -->
 
 
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -33,11 +34,56 @@
   </head>
   <body>
     <header>
-
+      <Ul>
+        <li><a href="{{ url_for('subjectpick')}}">Subject choose</a></li>
+        <li><a href="{{ url_for('post')}}">Post page</a></li>
+        <li><a href="{{ url_for('resources')}}">Review all resources</a></li>
+        <li class="tag_left"><a href="{{ url_for('homepage')}}">Home Page</a></li>
+      </Ul>
     </header>
     <main>
-
+      <form method="POST" action="{{url_for('subjectpick')}}">
+        <button type="submit" name="l1maths">
+          L1 Maths
+        </button>
+        <button type="submit" name="l2maths">
+          L2 Maths
+        </button>
+        <button type="submit" name="l3maths">
+          L3 Maths
+        </button>
+        <br>
+        <button type="submit" name="l1english">
+          L1 English
+        </button>
+        <button type="submit" name="l2english">
+          L2 English
+        </button>
+        <button type="submit" name="l3english">
+          L3 English
+        </button>
+        <br>
+        <button type="submit" name="l1physics">
+          L1 Physics
+        </button>
+        <button type="submit" name="l2physics">
+          L2 Physics
+        </button>
+        <button type="submit" name="l3physics">
+          L3 Physics
+        </button>
+        <br>
+        <button type="submit" name="l1chemsitry">
+          L1 Chemsitry
+        </button>
+        <button type="submit" name="l2chemsitry">
+          L2 Chemsitry
+        </button>
+        <button type="submit" name="l3chemsitry">
+          L3 Chemsitry
+        </button>
+      </form>
     </main>
   </body>
-
 </html>
+
