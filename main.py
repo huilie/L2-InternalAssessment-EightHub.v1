@@ -61,13 +61,22 @@ def account_create_password():
 def homepage():
     return render_template("homepage.html")
 
+
+
+
 @app.route("/resources", methods=['GET', 'POST'])
 def resources():
     return render_template("resources.html")
 
+
+
+
 @app.route("/post", methods=['GET', 'POST'])
 def post():
     return render_template("postpage.html")
+
+
+
 
 
 
@@ -94,6 +103,7 @@ def subjectpick():
 
 @app.route("/subjectpick_unity_mathsl1", methods=['GET', 'POST'])
 def subjectpick_unity_mathsl1():
+    
     return render_template("subjectpick_unity_mathsl1.html")
 
 
