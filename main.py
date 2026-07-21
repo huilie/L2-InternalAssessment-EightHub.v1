@@ -17,7 +17,7 @@ def account_create():
         if not input_name:
                 return render_template(
                     "account_create.html",
-                    create_password_error="just fking input"
+                    create_password_error="pls input email"
                 )
         return redirect(url_for('account_create_password'))
         # 将变量提前储存
@@ -36,12 +36,12 @@ def account_create_password():
             if input_password != ensure_input_password:
                 return render_template(
                     "account_create_password.html",
-                    create_password_error="Your password is trash"# error feedback
+                    create_password_error="pls check ur password is same"# error feedback
                     )
             if not input_password or not ensure_input_password:
                 return render_template(
                     "account_create_password.html",
-                    create_password_error="just fking input"
+                    create_password_error="pls input password"
                 )
 
             conaccounts = sqlite3.connect('database/account_password.db')
@@ -85,17 +85,25 @@ def post():
 
 
 
-@app.route("/subjectpick", methods=['GET','POST'])
-def subjectpick():
+@app.route("/subjectpic/<int:subject_id>", methods=['GET','POST'])
+def subjectpick(sub_id):
     if request.method == "POST":
-        if "l1maths" in request.form:
-            return render_template("subjectpick_unity_mathsl1.html")
-        if "l2maths" in request.form:
-            return render_template("subjectpick_unity_mathsl2.html")
-        if "l3maths" in request.form:
-            return render_template("subjectpick_unity_mathsl3.html")
+        sub_id = request.form.get("subject")
+        consubject = sqlite3.connect('database/subject.db')
+        sub_cursor = consubject.cursor()
+        sub_cursor.execute(
+            "SELECT * FROM unit WHERE sub_id=?",
+            (sub_id)
+            )
+        return render_template("subjectpick_unity.html")
     return render_template("subjectpick_main.html")
 
+
+@app.route("/unit/<int:unit_id>", methods=['GET','POST'])
+def unit(unit_id):
+    if request.method == "POST":
+        su
+    return render_template("subjectpick_unity.html")
 
 
 
