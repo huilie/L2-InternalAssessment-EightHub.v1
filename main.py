@@ -14,7 +14,7 @@ def account_create():
         if 'account_name' in request.form:
             input_name = request.form.get('account_name')
             session["input_name"] = input_name  # 把变量 email 的值保存起来，并命名为 "email"，以后这个用户访问其他页面时都可以取出来
-        if not input_name:
+        if not input_name or ".com" not in input_name:
                 return render_template(
                     "account_create.html",
                     create_password_error="pls input email"
@@ -45,8 +45,8 @@ def account_create_password():
                 )
 
             conaccounts = sqlite3.connect('database/account_password.db')
-            accountscursor = conaccounts.cursor()
-            accountscursor.execute(
+            accountcursor = conaccounts.cursor()
+            accountcursor.execute(
                 "INSERT INTO accountinfo (accountemail, accountpassword) VALUES(?,?)", 
                 (input_name, input_password) 
             )
@@ -85,24 +85,32 @@ def post():
 
 
 
-@app.route("/subjectpic/<int:subject_id>", methods=['GET','POST'])
-def subjectpick(sub_id):
+@app.route("/subjectpic/", methods=['GET','POST'])
+def subjectpick():
     if request.method == "POST":
-        sub_id = request.form.get("subject")
-        consubject = sqlite3.connect('database/subject.db')
-        sub_cursor = consubject.cursor()
-        sub_cursor.execute(
-            "SELECT * FROM unit WHERE sub_id=?",
-            (sub_id)
-            )
+        if 'subject' in request.form:
+            sub_id = request.form.get('subject')
+            return redirect(url_for("unit")) # sub_id = sub_id
+
+        # consubject = sqlite3.connect('database/subject.db')
+        # sub_cursor = consubject.cursor()
+        # sub_cursor.execute(
+        #     "SELECT * FROM subject WHERE sub_id=?",
+        #     (sub_id)
         return render_template("subjectpick_unity.html")
     return render_template("subjectpick_main.html")
 
 
-@app.route("/unit/<int:unit_id>", methods=['GET','POST'])
-def unit(unit_id):
+@app.route("/unit/<int:sub_id>", methods=['GET','POST'])
+def unit(sub_id):
     if request.method == "POST":
-        su
+        consub_id = sqlite3.connect('database/subject.db')
+        sub_idcursor = consub_id.cursor()
+        sub_idcursor.execute(
+            "SELECT (unit_id, unit) FROM unit WHERE sub_id=?",
+            (sub_id)
+        )
+        
     return render_template("subjectpick_unity.html")
 
 
