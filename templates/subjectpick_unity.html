@@ -42,10 +42,21 @@
     </header>
     <main>
       <h1>Unity</h1>
-      <form method="POST" action="{{url_for('unit')}}">
-        <button>
-          
+      <br>
+      <br>
+      <br>
+      <form method="POST" action="{{url_for('unit', sub_id=sub_id)}}">
+        {% for unit_id, subject in units %}
+        <button type="submit" name="unit_id" value="{{subject}}">
+          {{ subject }}
         </button>
+        <button type="submit" name="unit_id" value="{{subject}}">
+          {{ subject }}
+        </button>
+        <button type="submit" name="unit_id" value="{{subject}}">
+          {{ subject }}
+        </button>
+        {% endfor %}
       </form>
     </main>
   </body>

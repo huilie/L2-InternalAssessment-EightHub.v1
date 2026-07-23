@@ -59,9 +59,23 @@ def account_create_password():
 
 @app.route("/homepage", methods=['GET', 'POST'])
 def homepage():
+    if request.method =="POST":
+        if 'search_user_input' in request.form:
+            search_input = request.form.get('search_user_input')
+            consearch = sqlite3.connect('database/resources.db')
+            searchcursor = consearch.cursor()
+            searchcursor.execute(
+                "SELECT unit, awd FROM resources WHERE unit LIKE ?"
+            )
+        return render_template("search_results")
     return render_template("homepage.html")
 
 
+
+@app.rpute("/search_results", methods=['GET', 'POST'])
+def search_results():
+    # if request.method =="POST":
+    return render_template("search_results.html")
 
 
 @app.route("/resources", methods=['GET', 'POST'])
@@ -85,18 +99,13 @@ def post():
 
 
 
-@app.route("/subjectpic/", methods=['GET','POST'])
+@app.route("/subjectpic/", methods=['GET','POST']) # 让flask判断用户选择的id，然后再让html显示
 def subjectpick():
     if request.method == "POST":
         if 'subject' in request.form:
             sub_id = request.form.get('subject')
-            return redirect(url_for("unit")) # sub_id = sub_id
-
-        # consubject = sqlite3.connect('database/subject.db')
-        # sub_cursor = consubject.cursor()
-        # sub_cursor.execute(
-        #     "SELECT * FROM subject WHERE sub_id=?",
-        #     (sub_id)
+            return redirect(url_for("unit", sub_id = sub_id))
+        
         return render_template("subjectpick_unity.html")
     return render_template("subjectpick_main.html")
 
@@ -107,32 +116,34 @@ def unit(sub_id):
         consub_id = sqlite3.connect('database/subject.db')
         sub_idcursor = consub_id.cursor()
         sub_idcursor.execute(
-            "SELECT (unit_id, unit) FROM unit WHERE sub_id=?",
-            (sub_id)
-        )
-        
+            "SELECT unit_id, unit FROM unit WHERE sub_id=?",
+            (sub_id,)
+        )# SELECT unit_id, unit 不加括号
+        units = sub_idcursor.fetchall() # 将从database中搜索到的数据取出，并变成python列表
+
+        return render_template("resources.html", units = units, sub_id = sub_id)
     return render_template("subjectpick_unity.html")
 
 
 
 
 
-@app.route("/subjectpick_unity_mathsl1", methods=['GET', 'POST'])
-def subjectpick_unity_mathsl1():
+# @app.route("/subjectpick_unity_mathsl1", methods=['GET', 'POST'])
+# def subjectpick_unity_mathsl1():
     
-    return render_template("subjectpick_unity_mathsl1.html")
+#     return render_template("subjectpick_unity_mathsl1.html")
 
 
 
-@app.route("/subjectpick_unity_mathsl2", methods=['GET', 'POST'])
-def subjectpick_unity_mathsl2():
-    return render_template("subjectpick_unity_mathsl2.html")
+# @app.route("/subjectpick_unity_mathsl2", methods=['GET', 'POST'])
+# def subjectpick_unity_mathsl2():
+#     return render_template("subjectpick_unity_mathsl2.html")
 
 
 
-@app.route("/subjectpick_unity_mathsl3", methods=['GET', 'POST'])
-def subjectpick_unity_mathsl3():
-    return render_template("subjectpick_unity_mathsl3.html")
+# @app.route("/subjectpick_unity_mathsl3", methods=['GET', 'POST'])
+# def subjectpick_unity_mathsl3():
+#     return render_template("subjectpick_unity_mathsl3.html")
 
 
 
