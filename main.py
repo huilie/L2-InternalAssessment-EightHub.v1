@@ -1,9 +1,11 @@
 from imports import *
 
 app.secret_key = "awdawdawd"
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
-    return render_template("index.html")
+        if request.form.get("submit") =="next":
+             return render_template("account_create.html")
+        return render_template("index.html")
 
 
 @app.route("/account_create", methods=['GET', 'POST'])
@@ -60,27 +62,28 @@ def account_create_password():
 @app.route("/homepage", methods=['GET', 'POST'])
 def homepage():
     if request.method =="POST":
-        if 'search_user_input' in request.form:
-            search_input = request.form.get('search_user_input')
+        if 'Searchbar_q' in request.form:
+            search_input = request.form.get('Searchbar_q')
             consearch = sqlite3.connect('database/resources.db')
             searchcursor = consearch.cursor()
+            query_search = f"%{search_input}%" # 什么意思
             searchcursor.execute(
-                "SELECT unit, awd FROM resources WHERE unit LIKE ?"
+                "SELECT unit, awd FROM resources WHERE unit LIKE ?",
+                (query_search)
             )
+            search_results
+
         return render_template("search_results")
     return render_template("homepage.html")
 
 
 
-@app.rpute("/search_results", methods=['GET', 'POST'])
+@app.route("/search_results", methods=['GET', 'POST'])
 def search_results():
     # if request.method =="POST":
     return render_template("search_results.html")
 
 
-@app.route("/resources", methods=['GET', 'POST'])
-def resources():
-    return render_template("resources.html")
 
 
 
@@ -120,32 +123,15 @@ def unit(sub_id):
             (sub_id,)
         )# SELECT unit_id, unit 不加括号
         units = sub_idcursor.fetchall() # 将从database中搜索到的数据取出，并变成python列表
-
+        print(units)
         return render_template("resources.html", units = units, sub_id = sub_id)
     return render_template("subjectpick_unity.html")
 
 
 
-
-
-# @app.route("/subjectpick_unity_mathsl1", methods=['GET', 'POST'])
-# def subjectpick_unity_mathsl1():
-    
-#     return render_template("subjectpick_unity_mathsl1.html")
-
-
-
-# @app.route("/subjectpick_unity_mathsl2", methods=['GET', 'POST'])
-# def subjectpick_unity_mathsl2():
-#     return render_template("subjectpick_unity_mathsl2.html")
-
-
-
-# @app.route("/subjectpick_unity_mathsl3", methods=['GET', 'POST'])
-# def subjectpick_unity_mathsl3():
-#     return render_template("subjectpick_unity_mathsl3.html")
-
-
+@app.route("/resources", methods=['GET', 'POST'])
+def resources():
+    return render_template("resources.html")
 
 
 

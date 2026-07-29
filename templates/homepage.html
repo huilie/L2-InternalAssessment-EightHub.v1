@@ -41,8 +41,8 @@
       </Ul>
     </header>
     <main>
-      <form type="text" action="search_user_input">
-        <input type="text" name="Searchbar" placeholder="input what do you want to search">
+      <form action="{{url_for('homepage')}}" method="POST">
+        <input type="text" name="Searchbar_q" placeholder="input what do you want to search">
         <button type="submit">
           Search
         </button>
