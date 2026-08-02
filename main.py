@@ -16,6 +16,7 @@ def account_create():
         if 'account_name' in request.form:
             input_name = request.form.get('account_name')
             session["input_name"] = input_name  # 把变量 email 的值保存起来，并命名为 "email"，以后这个用户访问其他页面时都可以取出来
+
         if not input_name or ".com" not in input_name:
                 return render_template(
                     "account_create.html",
@@ -26,7 +27,7 @@ def account_create():
     return render_template("account_create.html")
 
 
-@app.route("/account_create-password", methods=['GET', 'POST'])
+@app.route("/account_create-assword", methods=['GET', 'POST'])
 def account_create_password():
     if "back" in request.form:
          return redirect(url_for("account_create"))
@@ -57,6 +58,8 @@ def account_create_password():
             conaccounts.close()
         return render_template('homepage.html')
     return render_template('account_create_password.html')
+
+# @app.route
 
 
 @app.route("/homepage", methods=['GET', 'POST'])
@@ -113,24 +116,39 @@ def subjectpick():
     return render_template("subjectpick_main.html")
 
 
+
+
 @app.route("/unit/<int:sub_id>", methods=['GET','POST'])
 def unit(sub_id):
-    if request.method == "POST":
-        consub_id = sqlite3.connect('database/subject.db')
-        sub_idcursor = consub_id.cursor()
-        sub_idcursor.execute(
-            "SELECT unit_id, unit FROM unit WHERE sub_id=?",
-            (sub_id,)
-        )# SELECT unit_id, unit 不加括号
-        units = sub_idcursor.fetchall() # 将从database中搜索到的数据取出，并变成python列表
-        print(units)
-        return render_template("resources.html", units = units, sub_id = sub_id)
-    return render_template("subjectpick_unity.html")
+    consub_id = sqlite3.connect('database/unit.db')
+    unit_cursor = consub_id.cursor()
+    unit_cursor.execute(
+         "SELECT unit_id, unit FROM unit WHERE sub_id=?",
+        (sub_id,)
+    )# SELECT unit_id, unit 不加括号
+    units = unit_cursor.fetchall() # 将从database中搜索到的数据取出，并变成python列表
+    return render_template("subjectpick_unity.html", units = units, sub_id = sub_id)
+
+# return render_template("subjectpick_unity.html")
+
+
 
 
 
 @app.route("/resources", methods=['GET', 'POST'])
 def resources():
+    if request.method =="POST":
+         sub_id = request.form.get("sub_id")
+         unit_id = request.form.get("unit_id")
+         conre = sqlite3.connect('database/resources.db')
+         re_cursor = conre.cursor()
+         re_cursor.execute(
+              "SELECT resources_id, unit, path, author, from_link FROM resources WHERE sub_id=? AND unit_id=?"
+              (sub_id, unit_id)
+         )
+         resources = conre.fetchall()
+         conre.commit()
+         conre.close()
     return render_template("resources.html")
 
 
