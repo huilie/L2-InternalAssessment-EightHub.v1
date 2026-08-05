@@ -16,6 +16,11 @@ recourse_connection = sqlite3.connect(
     check_same_thread=False
 )
 
+recourse_list_connection = sqlite3.connect(
+    "database/resources_list.db",
+    check_same_thread=False   
+)
+
 subject_connection = sqlite3.connect(
     "database/subject.db",
     check_same_thread=False
@@ -26,11 +31,16 @@ unit_connection = sqlite3.connect(
     check_same_thread=False
 )
 
+
+
+
 cursor = account_p_connection.cursor()
 
 pid_cursor = post_recourse_eid_connection.cursor()
 
 re_cursor = recourse_connection.cursor()
+
+re_list_cursor = recourse_list_connection.cursor()
 
 sub_cursor= subject_connection.cursor()
 

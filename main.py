@@ -16,7 +16,6 @@ def account_create():
         if 'account_name' in request.form:
             input_name = request.form.get('account_name')
             session["input_name"] = input_name  # 把变量 email 的值保存起来，并命名为 "email"，以后这个用户访问其他页面时都可以取出来
-
         if not input_name or ".com" not in input_name:
                 return render_template(
                     "account_create.html",
@@ -71,12 +70,11 @@ def homepage():
             searchcursor = consearch.cursor()
             query_search = f"%{search_input}%" # 什么意思
             searchcursor.execute(
-                "SELECT unit, awd FROM resources WHERE unit LIKE ?",
-                (query_search)
+                "SELECT unit, subject, resources_name FROM resources WHERE unit LIKE ? OR subject LIKE ? OR resources_name LIKE ?",
+                (query_search, query_search, query_search)
             )
-            search_results
-
-        return render_template("search_results")
+            search_results = searchcursor.fetchall()
+            return render_template("search_results.html", results = search_results, keywords = search_input)
     return render_template("homepage.html")
 
 
@@ -89,29 +87,12 @@ def search_results():
 
 
 
-
-
-@app.route("/post", methods=['GET', 'POST'])
-def post():
-    return render_template("postpage.html")
-
-
-
-
-
-
-
-
-
-
-
 @app.route("/subjectpic/", methods=['GET','POST']) # 让flask判断用户选择的id，然后再让html显示
 def subjectpick():
     if request.method == "POST":
         if 'subject' in request.form:
             sub_id = request.form.get('subject')
             return redirect(url_for("unit", sub_id = sub_id))
-        
         return render_template("subjectpick_unity.html")
     return render_template("subjectpick_main.html")
 
@@ -129,9 +110,18 @@ def unit(sub_id):
     units = unit_cursor.fetchall() # 将从database中搜索到的数据取出，并变成python列表
     return render_template("subjectpick_unity.html", units = units, sub_id = sub_id)
 
-# return render_template("subjectpick_unity.html")
 
-
+@app.route("/resources_list/<int:unit_id>", methods=['GET', 'POST'])
+def resources_list(unit_id):
+    conre_list = sqlite3.connect('database/resources.db')
+    re_cursor = conre_list.cursor()
+    re_cursor.execute(
+         "SELECT resources_id, resources_name, author FROM resources WHERE unit_id = ?",
+         (unit_id,)
+)
+    resources = re_cursor.fetchall()
+    conre_list.close()
+    return render_template("resources_list.html", resources = resources, unit_id = unit_id)
 
 
 
@@ -149,7 +139,7 @@ def resources():
          resources = conre.fetchall()
          conre.commit()
          conre.close()
-    return render_template("resources.html")
+    return render_template("resources.html", resources=resources, unit_id=unit_id)
 
 
 

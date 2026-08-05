@@ -35,7 +35,7 @@
     <header>
       <Ul>
         <li><a href="{{ url_for('subjectpick')}}">Subject choose</a></li>
-        <li><a href="{{ url_for('post')}}">Post page</a></li>
+        <li><a href="">Post page</a></li>
         <li><a href="{{ url_for('resources')}}">View all resources</a></li>
         <li class="tag_left"><a href="{{ url_for('homepage')}}">Home Page</a></li>
       </Ul>
@@ -45,13 +45,13 @@
       <br>
       <br>
       <br>
-      <form method="POST" action="{{url_for('unit', sub_id=sub_id)}}">
-        {% for unit_id, subject in units %}
-        <button type="submit" name="unit_id" value="{{subject}}">
-          {{ subject }}
+      {% for unit_id, unit_name in units %}
+      <a href="{{ url_for('resources_list', unit_id=unit_id) }}">
+        <button type="button">
+          {{ unit_name }}
         </button>
-        {% endfor %}
-      </form>
+      </a>
+      {% endfor %}
     </main>
   </body>
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-      Eighthub | search results
+      Eighthub | resources list
     </title>
     <link rel="stylesheet" href="/static/main.css">
   </head>
@@ -17,13 +17,13 @@
       </Ul>
     </header>
     <main>
-      <h1>
-        The results about "{{keywords}}" is:
-      </h1>
-      {% for result in results %}
-      <button>
-        {{ result[0] }}
-      </button>
+      <h1>Resources list</h1>
+      {% for resource in resources %}
+      <div>
+        <button>
+          {{ resource[1] }}, Author: {{ resource[3] }}
+        </button>
+      </div>
       {% endfor %}
     </main>
   </body>
