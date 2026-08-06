@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      Eighthub | Account setting
+    </title>
+    <link rel="stylesheet" href="/static/main.css">
+  </head>
+  <body>
+    <header>
+      <Ul>
+        <li><a href="{{ url_for('subjectpick')}}">Subject choose</a></li>
+        <li><a href="{{ url_for('account') }}">Account setting</a></li>
+        <li><a href="{{ url_for('resources')}}">View all resources</a></li>
+        <li class="tag_left"><a href="{{ url_for('homepage')}}">Home Page</a></li>
+      </Ul>
+    </header>
+    <main>
+      <form action="{{ url_for('account') }} " method="POST">
+        <h1>Account page</h1>
+        <br>
+        <h2>
+            Login password
+        </h2>
+        <input type="password" name="login_password" placeholder="input ur password">
+        <input type="email" name="login_email" placeholder="input ur email">
+        <button type="submit" name="action" value="login">
+            Login
+        </button>
+        <br>
+        <br>
+        <br>
+        <h2>
+            Change password
+        </h2>
+        <input type="password" name="old_password" placeholder="pls input ur old password">
+        <input type="password" name="new_password" placeholder="pls input ur new password">
+        <button type="submit" name="action" value="change_password">
+            Change password
+        </button>
+        <br>
+        <br>
+        <br>
+        <h2>
+            Delete account
+        </h2>
+        <input type="password" name="delete_password" placeholder="input ur password">
+        <input type="email" name="ensure_email" placeholder="input ur email">
+        <button type="submit" name="action" value="delete_account">
+            Delete Account
+        </button>
+      </form>
+
+      {% if message %}
+      <p class="error_text">
+        {{ report_message }}
+      </p>
+      {% endif %}
+    </main>
+  </body>
+</html>

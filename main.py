@@ -26,7 +26,7 @@ def account_create():
     return render_template("account_create.html")
 
 
-@app.route("/account_create-assword", methods=['GET', 'POST'])
+@app.route("/account_create-password", methods=['GET', 'POST'])
 def account_create_password():
     if "back" in request.form:
          return redirect(url_for("account_create"))
@@ -45,13 +45,23 @@ def account_create_password():
                     "account_create_password.html",
                     create_password_error="pls input password"
                 )
-
             conaccounts = sqlite3.connect('database/account_password.db')
             accountcursor = conaccounts.cursor()
+            accountcursor.execute("SELECT * FROM accountinfo WHERE accountemail=?",
+                                  (input_name,)
+                                  )
+            user = accountcursor.fetchone()
+            if user:
+                conaccounts.close()
+                return render_template("account_create_password.html" 
+                                       ,create_password_error="This email already exists"
+                                       )
             accountcursor.execute(
                 "INSERT INTO accountinfo (accountemail, accountpassword) VALUES(?,?)", 
                 (input_name, input_password) 
             )
+
+            
             
             conaccounts.commit()
             conaccounts.close()
@@ -59,6 +69,73 @@ def account_create_password():
     return render_template('account_create_password.html')
 
 # @app.route
+
+@app.route("/account", methods=['GET', 'POST'])
+def account():
+     if request.method == "POST":
+        action = request.form.get("action")
+        conaccounts = sqlite3.connect("database/account_password.db")
+        accountcursor = conaccounts.cursor()
+        #login
+        if action =="login":
+             email = request.form.get("login_email")
+             password = request.form.get("login_password")
+             accountcursor.execute(
+                  "SELECT * FROM accountinfo WHERE accountemail=? AND accountpassword=?",
+                  (email, password)
+             )
+             user = accountcursor.fetchone()
+             if user:
+                session["email"] = email
+                conaccounts.close()
+                return render_template("account.html", report_message="Login successful")
+             conaccounts.close()
+             return render_template("account.html", report_message="Wrong email or password")
+        # Change Password
+            
+        elif action == "change_password":
+            email = session.get("email")
+            if not email:
+                conaccounts.close()
+                return render_template("account.html", report_message="Pls login first")
+            old_password = request.form.get("old_password")
+            new_password = request.form.get("new_password")
+            accountcursor.execute(" SELECT * FROM accountinfo WHERE accountemail=? AND accountpassword=?", 
+                (email, old_password)
+            )
+            user = accountcursor.fetchone()
+            if not user:
+                conaccounts.close()
+                return render_template("account.html", report_message="Old password is incorrect")
+            accountcursor.execute("UPDATE accountinfo SET accountpassword=? WHERE accountemail=?", 
+                                  (new_password, email)
+                )
+            conaccounts.commit()
+            conaccounts.close()
+            return render_template("account.html", report_message="Password changed successfully")
+        # Delete Account
+
+        elif action == "delete_account":
+            email = request.form.get("delete_email")
+            password = request.form.get("delete_password")
+            accountcursor.execute( "SELECT * FROM accountinfo WHERE accountemail=? AND accountpassword=?", 
+                                  (email, password)
+                                  )
+            user = accountcursor.fetchone()
+            if not user:
+                conaccounts.close()
+                return render_template("account.html", report_message="Wrong email or password")
+            accountcursor.execute("DELETE FROM accountinfo WHERE accountemail=?",
+                                  (email,)
+                                  )
+            conaccounts.commit()
+            session.clear()
+            conaccounts.close()
+            return render_template("account.html", report_message="Account deleted.")
+        return render_template('account.html')
+     return render_template('account.html')
+
+
 
 
 @app.route("/homepage", methods=['GET', 'POST'])
