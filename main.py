@@ -54,7 +54,7 @@ def account_create_password():
             if user:
                 conaccounts.close()
                 return render_template("account_create_password.html" 
-                                       ,create_password_error="This email already exists"
+                                       ,create_password_error="This email already exists, pls go back"
                                        )
             accountcursor.execute(
                 "INSERT INTO accountinfo (accountemail, accountpassword) VALUES(?,?)", 
@@ -116,7 +116,7 @@ def account():
         # Delete Account
 
         elif action == "delete_account":
-            email = request.form.get("delete_email")
+            email = request.form.get("ensure_email")
             password = request.form.get("delete_password")
             accountcursor.execute( "SELECT * FROM accountinfo WHERE accountemail=? AND accountpassword=?", 
                                   (email, password)

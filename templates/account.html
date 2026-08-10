@@ -17,7 +17,7 @@
       </Ul>
     </header>
     <main>
-      <form action="{{ url_for('account') }} " method="POST">
+      <form action="{{ url_for('account') }}" method="POST">
         <h1>Account page</h1>
         <br>
         <h2>
@@ -52,7 +52,7 @@
         </button>
       </form>
 
-      {% if message %}
+      {% if report_message %}
       <p class="error_text">
         {{ report_message }}
       </p>
