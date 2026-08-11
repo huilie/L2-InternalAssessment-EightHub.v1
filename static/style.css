@@ -149,8 +149,9 @@ https://www.w3schools.com/css/tryit.asp?filename=trycss_navbar_horizontal_respon
     background-repeat: no-repeat;
 
 } 
+
 ___________________________________________
-/*  
+
 .create_account_input-1 {
     padding: 10px 30px;
     font-size: 1.2rem;
@@ -168,26 +169,14 @@ ___________________________________________
     color: var(--background);
     border: 2px solid var(--blue);
     border-radius: 30px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: -20%;
-    margin-right: 40%;
+}
+
+.submit-1:hover {
+    background-color: var(--orange);
 }
 
 
-.back-1{
-    padding: 12px 40px;
-    font-size: 1rem;
-    background-color: var(--orange);
-    color: var(--background);
-    border: 2px solid var(--blue);
-    border-radius: 30px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-} */
-
-.create_account_input-1 input[type="text"] {
+/* .create_account_input-1 input[type="text"] {
     padding: 10px 30px;
     font-size: 1.2rem;
     width: 350px;
@@ -212,5 +201,37 @@ ___________________________________________
 
 .create_account_input-1 button[type="back"]:hover {
     background-color: var(--orange);
+} */
+
+.input_line{
+    padding: 10px 30px;
+    font-size: 1.2rem;
+    width: 350px;
+    border: 2px solid var(--blue);
+    border-radius: 10px;
+    outline: none;
+    box-shadow: 0 2px 4px
+}
+.list_display{
+    text-align: center;
+    justify-content: center;
+}
+.button{
+    font-size: large;
+    padding: 15px 100px;
+    border-radius: 10px;
+}
+.button_square{
+    margin-right: 30px;
+    margin-top: 20px;
+    font-size: 30px;
+    padding: 70px 20px;
+    border-radius: 10px;
 }
 
+
+
+.error_text{
+    text-align: center;
+    color: red;
+}

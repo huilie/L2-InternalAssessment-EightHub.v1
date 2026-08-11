@@ -202,21 +202,126 @@ def resources_list(unit_id):
 
 
 
-@app.route("/resources", methods=['GET', 'POST'])
-def resources():
-    if request.method =="POST":
-         sub_id = request.form.get("sub_id")
-         unit_id = request.form.get("unit_id")
-         conre = sqlite3.connect('database/resources.db')
-         re_cursor = conre.cursor()
-         re_cursor.execute(
-              "SELECT resources_id, unit, path, author, from_link FROM resources WHERE sub_id=? AND unit_id=?"
-              (sub_id, unit_id)
-         )
-         resources = conre.fetchall()
-         conre.commit()
-         conre.close()
-    return render_template("resources.html", resources=resources, unit_id=unit_id)
+
+
+
+@app.route("/resources/<int:sub_id>/<int:unit_id>", methods=['GET'])
+def resources(sub_id, unit_id):
+
+    conre = sqlite3.connect('database/resources.db')
+    re_cursor = conre.cursor()
+
+    re_cursor.execute(
+        """
+        SELECT resources_id, resources_name, path, type, author, from_link
+        FROM resources
+        WHERE sub_id=? AND unit_id=?
+        """,
+        (sub_id, unit_id)
+    )
+
+    resources = re_cursor.fetchall()
+
+    conre.close()
+
+    return render_template(
+        "resources.html",
+        resources=resources,
+        sub_id=sub_id,
+        unit_id=unit_id
+    )
+
+@app.route("/all_resources", methods=['GET', 'POST'])
+def all_resources():
+    selected_type = request.args.get("type", "")
+    selected_year = request.args.get("released_year", "")
+    conre = sqlite3.connect("database/resources.db")
+    re_cursor = conre.cursor()
+    # get type
+    re_cursor.execute(
+        "SELECT DISTINCT type FROM resources WHERE type IS NOT NULL ORDER BY type"
+    )
+    types = re_cursor.fetchall()
+    #get realsed year
+    re_cursor.execute(
+        "SELECT DISTINCT released_year FROM resources WHERE released_year IS NOT NULL ORDER BY released_year"
+    )
+    years = re_cursor.fetchall()
+    #筛选查询
+    search_sql = "SELECT resources_id, subject, unit, resources_name, path, type, author, released_year FROM resources WHERE 1=1"
+    parameters = []
+    # Filter type
+    if selected_type:
+        search_sql += " AND type = ?"
+        parameters.append(selected_type)
+    if selected_year:
+        search_sql += " AND released_year = ?"
+        parameters.append(selected_year)
+    search_sql += " ORDER BY resources_id"
+    re_cursor.execute(search_sql, parameters)
+    resources = re_cursor.fetchall()
+    conre.close()
+    return render_template(
+        "all_resources.html",
+        resources=resources,
+        types=types,
+        years=years,
+        selected_type=selected_type,
+        selected_year=selected_year
+        )
+
+
+@app.route("/detail_resource/<int:resources_id>")
+def resource(resources_id):
+
+    conre = sqlite3.connect("database/resources.db")
+    re_cursor = conre.cursor()
+
+    re_cursor.execute(
+        """
+        SELECT
+            resources_id,
+            subject,
+            unit,
+            resources_name,
+            path,
+            type,
+            author,
+            from_link,
+            released_year
+        FROM resources
+        WHERE resources_id=?
+        """,
+        (resources_id,)
+    )
+
+    resource_data = re_cursor.fetchone()
+
+    conre.close()
+
+    if resource_data is None:
+        return "Resource not found", 404
+
+    return render_template(
+        "resource.html",
+        resource=resource_data
+    )
+
+# @app.route("/resources", methods=['GET', 'POST'])
+# def resources():
+#     if request.method =="POST":
+#          sub_id = request.form.get("sub_id")
+#          unit_id = request.form.get("unit_id")
+#          conre = sqlite3.connect('database/resources.db')
+#          re_cursor = conre.cursor()
+#          re_cursor.execute(
+#               "SELECT resources_id, unit, path, author, from_link FROM resources WHERE sub_id=? AND unit_id=?",
+#               (sub_id, unit_id)
+#          )
+#          resources = conre.fetchall()
+#          conre.commit()
+#          conre.close()
+#     return render_template("resources.html", resources=resources, unit_id=unit_id)
 
 
 

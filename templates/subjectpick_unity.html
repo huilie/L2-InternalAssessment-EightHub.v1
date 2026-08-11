@@ -29,14 +29,14 @@
     <title>
       Eighthub | pick unit
     </title>
-    <link rel="stylesheet" href="/static/main.css">
+    <link rel="stylesheet" href="/static/style.css">
   </head>
   <body>
     <header>
       <Ul>
         <li><a href="{{ url_for('subjectpick')}}">Subject choose</a></li>
         <li><a href="{{ url_for('account') }}">Account setting</a></li>
-        <li><a href="{{ url_for('resources')}}">View all resources</a></li>
+        <li><a href="{{ url_for('all_resources')}}">View all resources</a></li>
         <li class="tag_left"><a href="{{ url_for('homepage')}}">Home Page</a></li>
       </Ul>
     </header>
@@ -46,11 +46,14 @@
       <br>
       <br>
       {% for unit_id, unit_name in units %}
-      <a href="{{ url_for('resources_list', unit_id=unit_id) }}">
-        <button type="button">
+      <div class="list_display">
+        <a href="{{ url_for('resources_list', sub_id=sub_id, unit_id=unit_id) }}">
+        <button class="button" type="button">
           {{ unit_name }}
         </button>
       </a>
+      </div>
+      <br>
       {% endfor %}
     </main>
   </body>

@@ -30,59 +30,63 @@
     <title>
       Eighthub | Subject pick list
     </title>
-    <link rel="stylesheet" href="/static/main.css">
+    <link rel="stylesheet" href="/static/style.css">
   </head>
   <body>
     <header>
       <Ul>
         <li><a href="{{ url_for('subjectpick')}}">Subject choose</a></li>
         <li><a href="{{ url_for('account') }}">Account setting</a></li>
-        <li><a href="{{ url_for('resources')}}">View all resources</a></li>
+        <li><a href="{{ url_for('all_resources')}}">View all resources</a></li>
         <li class="tag_left"><a href="{{ url_for('homepage')}}">Home Page</a></li>
       </Ul>
     </header>
     <main>
       <form method="POST" action="{{url_for('subjectpick')}}">
-        <button type="submit" name="subject" value="1">
-          L1 Mathematics 「L1MATH」
-        </button>
-        <button type="submit" name="subject" value="2">
-          L2 Mathematics 「L2MATH」
-        </button>
-        <button type="submit" name="subject" value="3">
-          L3 Mathematics 「L3MATH」
-        </button>
         <br>
-        <button type="submit" name="subject" value="4">
-          L1 Digital Tech. - Software Development 「L1DTSD」
-        </button>
-        <!-- <button type="submit" name="subject" value="5">
-          L2 Digital Tech. - Software Development 
-        </button>
-        <button type="submit" name="subject" value="6">
-          L3 Digital Tech. - Software Development 「L3DTSD」
-        </button> -->
         <br>
-        <!-- <button type="submit" name="subject" value="7">
-          L1 Physics 「L1PHYS」
-        </button> -->
-        <button type="submit" name="subject" value="8">
-          L2 Physics 「L2PHYS」
-        </button>
-        <button type="submit" name="subject" value="9">
-          L3 Physics 「L3PHYS」
-        </button>
         <br>
-        <!-- <button type="submit" name="subject" value="10">
-          L1 Chemsitry 「L1CHEM」
-        </button> -->
-        <button type="submit" name="subject" value="11">
-          L2 Chemsitry 「L2CHEM」
-        </button>
-        <button type="submit" name="subject" value="12">
-          L3 Chemsitry 「L3CHEM」
-        </button>
-        
+        <div class="list_display">
+          <button class="button_square" type="submit" name="subject" value="1">
+            L1 Mathematics 「L1MATH」
+          </button>
+          <button class="button_square" type="submit" name="subject" value="2">
+            L2 Mathematics 「L2MATH」
+          </button>
+          <button class="button_square" type="submit" name="subject" value="3">
+            L3 Mathematics 「L3MATH」
+          </button>
+          <br>
+          <button class="button_square" type="submit" name="subject" value="4">
+            L1 Digital Tech. - Software Development 「L1DTSD」
+          </button>
+          <button class="button_square" type="submit" name="subject" value="5">
+            L2 Digital Tech. - Software Development 「L2DTSD」
+          </button>
+          <button class="button_square" type="submit" name="subject" value="6">
+            L3 Digital Tech. - Software Development 「L3DTSD」
+          </button>
+          <br>
+          <!-- <button type="submit" name="subject" value="7">
+            L1 Physics 「L1PHYS」
+          </button> -->
+          <button class="button_square" type="submit" name="subject" value="8">
+            L2 Physics 「L2PHYS」
+          </button>
+          <button class="button_square" type="submit" name="subject" value="9">
+            L3 Physics 「L3PHYS」
+          </button>
+          <br>
+          <!-- <button type="submit" name="subject" value="10">
+            L1 Chemsitry 「L1CHEM」
+          </button> -->
+          <button class="button_square" type="submit" name="subject" value="11">
+            L2 Chemsitry 「L2CHEM」
+          </button>
+          <button class="button_square" type="submit" name="subject" value="12">
+            L3 Chemsitry 「L3CHEM」
+          </button>
+        </div>
       </form>
     </main>
   </body>

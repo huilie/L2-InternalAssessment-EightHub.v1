@@ -29,23 +29,31 @@
     <title>
       Eighthub | Home page
     </title>
-    <link rel="stylesheet" href="/static/main.css">
+    <link rel="stylesheet" href="/static/style.css">
   </head>
   <body>
     <header>
       <Ul>
         <li><a href="{{ url_for('subjectpick')}}">Subject choose</a></li>
         <li><a href="{{ url_for('account') }}">Account setting</a></li>
-        <li><a href="{{ url_for('resources')}}">View all resources</a></li>
+        <li><a href="{{ url_for('all_resources')}}">View all resources</a></li>
         <li class="tag_left"><a href="{{ url_for('homepage')}}">Home Page</a></li>
       </Ul>
     </header>
     <main>
+      <br>
+      <br>
+      <h1>
+        Search
+      </h1>
+      <br>
       <form action="{{url_for('homepage')}}" method="POST">
-        <input type="text" name="Searchbar_q" placeholder="input what do you want to search">
-        <button type="submit">
-          Search
-        </button>
+        <div class="list_display">
+          <input class="input_line" type="text" name="Searchbar_q" placeholder="input what do you want to search">
+          <button class="submit-1" type="submit">
+            Search
+          </button>
+        </div>
       </form>
     </main>
   </body>

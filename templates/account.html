@@ -5,53 +5,57 @@
     <title>
       Eighthub | Account setting
     </title>
-    <link rel="stylesheet" href="/static/main.css">
+    <link rel="stylesheet" href="/static/style.css">
   </head>
   <body>
     <header>
       <Ul>
         <li><a href="{{ url_for('subjectpick')}}">Subject choose</a></li>
         <li><a href="{{ url_for('account') }}">Account setting</a></li>
-        <li><a href="{{ url_for('resources')}}">View all resources</a></li>
+        <li><a href="{{ url_for('all_resources')}}">View all resources</a></li>
         <li class="tag_left"><a href="{{ url_for('homepage')}}">Home Page</a></li>
       </Ul>
     </header>
     <main>
       <form action="{{ url_for('account') }}" method="POST">
-        <h1>Account page</h1>
-        <br>
-        <h2>
+        <div class="list_display">
+          <h1>Account page</h1>
+          <br>
+          <h2>
             Login password
-        </h2>
-        <input type="password" name="login_password" placeholder="input ur password">
-        <input type="email" name="login_email" placeholder="input ur email">
-        <button type="submit" name="action" value="login">
+          </h2>
+          <input class="input_line" type="email" name="login_email" placeholder="input ur email">
+          <input class="input_line" type="password" name="login_password" placeholder="input ur password">
+          <button class="submit-1" type="submit" name="action" value="login">
             Login
-        </button>
-        <br>
-        <br>
-        <br>
-        <h2>
+          </button>
+          <br>
+          <br>
+          <br>
+          <h2>
             Change password
-        </h2>
-        <input type="password" name="old_password" placeholder="pls input ur old password">
-        <input type="password" name="new_password" placeholder="pls input ur new password">
-        <button type="submit" name="action" value="change_password">
+          </h2>
+          <input class="input_line" type="password" name="old_password" placeholder="pls input ur old password">
+          <input class="input_line" type="password" name="new_password" placeholder="pls input ur new password">
+          <button class="submit-1" type="submit" name="action" value="change_password">
             Change password
-        </button>
-        <br>
-        <br>
-        <br>
-        <h2>
+          </button>
+          <br>
+          <br>
+          <br>
+          <h2>
             Delete account
-        </h2>
-        <input type="password" name="delete_password" placeholder="input ur password">
-        <input type="email" name="ensure_email" placeholder="input ur email">
-        <button type="submit" name="action" value="delete_account">
+          </h2>
+          <input class="input_line" type="email" name="ensure_email" placeholder="input ur email">
+          <input class="input_line" type="password" name="delete_password" placeholder="input ur password">
+          <button class="submit-1" type="submit" name="action" value="delete_account">
             Delete Account
-        </button>
+          </button>
+          <p>
+            if you don't have account, click here to <a href="{{url_for('account_create')}}">create account</a>
+          </p>
+        </div>
       </form>
-
       {% if report_message %}
       <p class="error_text">
         {{ report_message }}

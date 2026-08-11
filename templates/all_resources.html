@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      Eighthub | search results
+    </title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <header>
+      <Ul>
+        <li><a href="{{ url_for('subjectpick')}}">Subject choose</a></li>
+        <li><a href="{{ url_for('account') }}">Account setting</a></li>
+        <li><a href="{{ url_for('all_resources')}}">View all resources</a></li>
+        <li class="tag_left"><a href="{{ url_for('homepage')}}">Home Page</a></li>
+      </Ul>
+    </header>
+    <h1>All resources</h1>
+    <main>
+      <form action="{{url_for('all_resources')}}" method="GET">
+        <!-- Type -->
+        <label for="type">
+          Type:
+        </label>
+        <select name="type" id="type">
+          <option value="">All</option>
+          {% for type in types %}
+          <option value="{{ type[0] }}" {% if selected_type == type[0] %} selected {% endif %} >
+            {{ type[0] }}
+          </option>
+          {% endfor %}
+        </select>
+        <!-- released Year -->
+         <label for="released_year">Released Year:</label>
+         <select name="released_year" id="released_year">
+          <option value="">All</option>
+          {% for year in years %}
+          <option value="{{ year[0] }}" {% if selected_year|string == year[0]|string %} selected {% endif %} >
+            {{ year[0] }}
+          </option>
+          {% endfor %}
+        </select>
+        <button type="submit">
+          Filter
+        </button>
+        <!-- Resource list -->
+        {% for resource in resources %}
+        <div class="">
+          <a href="{{ url_for('resources', sub_id=resource[0], unit_id=resource[0]) }}">
+            <button type="button">
+              {{ resource[1] }} → {{ resource[2] }}
+            </button>
+          </a>
+          <p>{{ resource[3] }}</p>
+          <p>
+            Type: {{ resource[5] }} | Author: {{ resource[6] }} | Released: {{ resource[7] }}
+          </p>
+        </div>
+      </form>
+      <hr>
+      {% else %}
+      <p>No resources found</p>
+      {% endfor %}
+    </main>
+  </body>
+
+</html>

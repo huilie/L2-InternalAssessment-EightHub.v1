@@ -29,21 +29,67 @@
     <title>
       Eighthub | view all resources
     </title>
-    <link rel="stylesheet" href="/static/main.css">
+    <link rel="stylesheet" href="/static/style.css">
   </head>
   <body>
     <header>
       <Ul>
         <li><a href="{{ url_for('subjectpick')}}">Subject choose</a></li>
         <li><a href="{{ url_for('account') }}">Account setting</a></li>
-        <li><a href="{{ url_for('resources')}}">View all resources</a></li>
+        <li><a href="{{ url_for('all_resources')}}">View all resources</a></li>
         <li class="tag_left"><a href="{{ url_for('homepage')}}">Home Page</a></li>
       </Ul>
     </header>
     <main>
-      <form>
-        
-      </form>
+<h1>Resources</h1>
+
+    {% for resource in resources %}
+
+        <div class="resource">
+
+            <h2>
+
+                {{ resource[1] }}
+
+            </h2>
+
+            <p>
+
+                Author: {{ resource[4] }}
+
+            </p>
+
+            {% if resource[3] == "jpg" or resource[3] == "png" %}
+
+                <img
+
+                    src="{{ url_for('static', filename=resource[2].replace('static/', '')) }}"
+
+                    alt="{{ resource[1] }}"
+
+                    width="500"
+
+                >
+
+            {% elif resource[3] == "pdf" %}
+
+                <iframe
+
+                    src="{{ url_for('static', filename=resource[2].replace('static/', '')) }}"
+
+                    width="800"
+
+                    height="600">
+
+                </iframe>
+
+            {% endif %}
+
+        </div>
+
+        <hr>
+
+    {% endfor %}
     </main>
   </body>
 

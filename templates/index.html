@@ -29,14 +29,14 @@
     <title>
       Eighthub | Introduction
     </title>
-    <link rel="stylesheet" href="/static/main.css">
+    <link rel="stylesheet" href="/static/style.css">
   </head>
   <body>
     <header>
       <Ul>
         <li><a href="{{ url_for('subjectpick')}}">Subject choose</a></li>
         <li><a href="{{ url_for('account') }}">Account setting</a></li>
-        <li><a href="{{ url_for('resources')}}">View all resources</a></li>
+        <li><a href="{{ url_for('all_resources')}}">View all resources</a></li>
         <li class="tag_left"><a href="{{ url_for('homepage')}}">Home Page</a></li>
       </Ul>
     </header>
@@ -52,7 +52,7 @@
             Create account
           </button>
           <h2>
-            If you have account, you can go to account setting to login
+            If you have account, you can go to <a href="{{url_for('account')}}">account setting</a> to login your account
           </h2>
         </div>
         <div>
