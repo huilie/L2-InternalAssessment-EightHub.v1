@@ -15,7 +15,8 @@ def account_create():
     if request.method == "POST":
         if 'account_name' in request.form:
             input_name = request.form.get('account_name')
-            session["input_name"] = input_name  # 把变量 email 的值保存起来，并命名为 "email"，以后这个用户访问其他页面时都可以取出来
+            session["input_name"] = input_name  
+            # 把变量 email 的值保存起来，并命名为 "email"，以后这个用户访问其他页面时都可以取出来
         if not input_name or ".com" not in input_name:
                 return render_template(
                     "account_create.html",
@@ -45,7 +46,22 @@ def account_create_password():
                     "account_create_password.html",
                     create_password_error="pls input password"
                 )
-            conaccounts = sqlite3.connect('database/account_password.db')
+            if len(input_password) < 8:
+                return render_template(
+                    "account_create_password.html",
+                    create_password_error="your password must be at least 8 characters"
+                )
+            if not re.search(r"[A-Za-z]", input_password):
+                return render_template(
+                    "account_create_password.html",
+                    create_password_error="your password contain letters"
+                )
+            if not re.search(r"[0-9]", input_password):
+                return render_template(
+                    "account_create_password.html",
+                    create_password_error="your password contain numbers"
+                )
+            conaccounts = sqlite3.connect('database/database.db')
             accountcursor = conaccounts.cursor()
             accountcursor.execute("SELECT * FROM accountinfo WHERE accountemail=?",
                                   (input_name,)
@@ -60,9 +76,6 @@ def account_create_password():
                 "INSERT INTO accountinfo (accountemail, accountpassword) VALUES(?,?)", 
                 (input_name, input_password) 
             )
-
-            
-            
             conaccounts.commit()
             conaccounts.close()
         return render_template('homepage.html')
@@ -74,7 +87,7 @@ def account_create_password():
 def account():
      if request.method == "POST":
         action = request.form.get("action")
-        conaccounts = sqlite3.connect("database/account_password.db")
+        conaccounts = sqlite3.connect("database/database.db")
         accountcursor = conaccounts.cursor()
         #login
         if action =="login":
@@ -91,6 +104,7 @@ def account():
                 return render_template("account.html", report_message="Login successful")
              conaccounts.close()
              return render_template("account.html", report_message="Wrong email or password")
+
         # Change Password
             
         elif action == "change_password":
@@ -143,7 +157,7 @@ def homepage():
     if request.method =="POST":
         if 'Searchbar_q' in request.form:
             search_input = request.form.get('Searchbar_q')
-            consearch = sqlite3.connect('database/resources.db')
+            consearch = sqlite3.connect('database/database.db')
             searchcursor = consearch.cursor()
             query_search = f"%{search_input}%" # 什么意思
             searchcursor.execute(
@@ -178,7 +192,7 @@ def subjectpick():
 
 @app.route("/unit/<int:sub_id>", methods=['GET','POST'])
 def unit(sub_id):
-    consub_id = sqlite3.connect('database/unit.db')
+    consub_id = sqlite3.connect('database/database.db')
     unit_cursor = consub_id.cursor()
     unit_cursor.execute(
          "SELECT unit_id, unit FROM unit WHERE sub_id=?",
@@ -190,7 +204,7 @@ def unit(sub_id):
 
 @app.route("/resources_list/<int:unit_id>", methods=['GET', 'POST'])
 def resources_list(unit_id):
-    conre_list = sqlite3.connect('database/resources.db')
+    conre_list = sqlite3.connect('database/database.db')
     re_cursor = conre_list.cursor()
     re_cursor.execute(
          "SELECT resources_id, resources_name, author FROM resources WHERE unit_id = ?",
@@ -208,7 +222,7 @@ def resources_list(unit_id):
 @app.route("/resources/<int:sub_id>/<int:unit_id>", methods=['GET'])
 def resources(sub_id, unit_id):
 
-    conre = sqlite3.connect('database/resources.db')
+    conre = sqlite3.connect('database/database.db')
     re_cursor = conre.cursor()
 
     re_cursor.execute(
@@ -231,11 +245,12 @@ def resources(sub_id, unit_id):
         unit_id=unit_id
     )
 
+
 @app.route("/all_resources", methods=['GET', 'POST'])
 def all_resources():
     selected_type = request.args.get("type", "")
     selected_year = request.args.get("released_year", "")
-    conre = sqlite3.connect("database/resources.db")
+    conre = sqlite3.connect("database/database.db")
     re_cursor = conre.cursor()
     # get type
     re_cursor.execute(
@@ -262,19 +277,14 @@ def all_resources():
     resources = re_cursor.fetchall()
     conre.close()
     return render_template(
-        "all_resources.html",
-        resources=resources,
-        types=types,
-        years=years,
-        selected_type=selected_type,
-        selected_year=selected_year
+        "all_resources.html", resources=resources, types=types, years=years, selected_type=selected_type, selected_year=selected_year
         )
 
 
 @app.route("/detail_resource/<int:resources_id>")
 def resource(resources_id):
 
-    conre = sqlite3.connect("database/resources.db")
+    conre = sqlite3.connect("database/database.db")
     re_cursor = conre.cursor()
 
     re_cursor.execute(
@@ -307,12 +317,15 @@ def resource(resources_id):
         resource=resource_data
     )
 
+
+
+
 # @app.route("/resources", methods=['GET', 'POST'])
 # def resources():
 #     if request.method =="POST":
 #          sub_id = request.form.get("sub_id")
 #          unit_id = request.form.get("unit_id")
-#          conre = sqlite3.connect('database/resources.db')
+#          conre = sqlite3.connect('database/database.db')
 #          re_cursor = conre.cursor()
 #          re_cursor.execute(
 #               "SELECT resources_id, unit, path, author, from_link FROM resources WHERE sub_id=? AND unit_id=?",

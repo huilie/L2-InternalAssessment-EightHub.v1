@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-      Eighthub | search results
+      Eighthub | Show all resources
     </title>
     <link rel="stylesheet" href="/static/style.css">
   </head>
@@ -19,7 +19,10 @@
     <h1>All resources</h1>
     <main>
       <form action="{{url_for('all_resources')}}" method="GET">
-        <!-- Type -->
+      <br>
+      <br>
+        <div class="list_display">
+        <!--type -->
         <label for="type">
           Type:
         </label>
@@ -31,7 +34,7 @@
           </option>
           {% endfor %}
         </select>
-        <!-- released Year -->
+        <!--released year -->
          <label for="released_year">Released Year:</label>
          <select name="released_year" id="released_year">
           <option value="">All</option>
@@ -44,21 +47,26 @@
         <button type="submit">
           Filter
         </button>
-        <!-- Resource list -->
+        <br>
+        <br>
+        <br>
+      </div>
+        <!-- resource list -->
         {% for resource in resources %}
-        <div class="">
+        <div class="list_display">
           <a href="{{ url_for('resources', sub_id=resource[0], unit_id=resource[0]) }}">
-            <button type="button">
-              {{ resource[1] }} → {{ resource[2] }}
-            </button>
           </a>
-          <p>{{ resource[3] }}</p>
-          <p>
+          <p class="list_resources_topic">{{ resource[3] }}</p>
+          <button class="button_list" type="button">
+              {{ resource[1] }} → {{ resource[2] }}
+          </button>
+          <p class="">
             Type: {{ resource[5] }} | Author: {{ resource[6] }} | Released: {{ resource[7] }}
           </p>
         </div>
       </form>
-      <hr>
+
+      <br>
       {% else %}
       <p>No resources found</p>
       {% endfor %}

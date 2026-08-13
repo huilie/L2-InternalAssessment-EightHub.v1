@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Eighthub | Resource
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="/static/style.css"
+  >
+
+</head>
+
+
+<body>
+
+<header>
+
+  <ul>
+
+    <li>
+      <a href="{{ url_for('subjectpick') }}">
+        Subject choose
+      </a>
+    </li>
+
+    <li>
+      <a href="{{ url_for('account') }}">
+        Account setting
+      </a>
+    </li>
+
+    <li>
+      <a href="{{ url_for('all_resources') }}">
+        View all resources
+      </a>
+    </li>
+
+    <li class="tag_left">
+      <a href="{{ url_for('homepage') }}">
+        Home Page
+      </a>
+    </li>
+
+  </ul>
+
+</header>
+
+
+<main>
+
+  <h1>
+    {{ resource[3] }}
+  </h1>
+
+
+  <p>
+    Subject:
+    {{ resource[1] }}
+  </p>
+
+
+  <p>
+    Unit:
+    {{ resource[2] }}
+  </p>
+
+
+  <p>
+    Author:
+    {{ resource[6] }}
+  </p>
+
+
+  <p>
+    Type:
+    {{ resource[5] }}
+  </p>
+
+
+  <p>
+    Released:
+    {{ resource[8] }}
+  </p>
+
+
+  <hr>
+
+
+  <!-- JPG / PNG -->
+
+  {% if resource[5] == "jpg"
+     or resource[5] == "jpeg"
+     or resource[5] == "png" %}
+
+    <img
+      src="{{ url_for(
+        'static',
+        filename=resource[4].replace('static/', '')
+      ) }}"
+      alt="{{ resource[3] }}"
+      width="800"
+    >
+
+
+  <!-- PDF -->
+
+  {% elif resource[5] == "pdf" %}
+
+    <iframe
+      src="{{ url_for(
+        'static',
+        filename=resource[4].replace('static/', '')
+      ) }}"
+      width="100%"
+      height="800"
+    >
+    </iframe>
+
+
+  <!-- Other -->
+
+  {% else %}
+
+    <p>
+      This resource cannot be displayed directly.
+    </p>
+
+    <a
+      href="{{ url_for(
+        'static',
+        filename=resource[4].replace('static/', '')
+      ) }}"
+    >
+
+      Open resource
+
+    </a>
+
+  {% endif %}
+
+
+</main>
+
+</body>
+
+</html>

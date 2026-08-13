@@ -17,13 +17,34 @@
       </Ul>
     </header>
     <main>
+      <br>
+      <br>
+      <h1>
+        Search
+      </h1>
+      <br>
+      <form action="{{url_for('homepage')}}" method="POST">
+        <div class="list_display">
+          <input class="input_line" type="text" name="Searchbar_q" placeholder="input what do you want to search">
+          <button class="submit-1" type="submit">
+            Search
+          </button>
+        </div>
+      </form>
+      <br>
+      <br>
       <h1>
         The results about "{{keywords}}" is:
       </h1>
       {% for result in results %}
-      <button>
-        {{ result[0] }}
-      </button>
+      <br>
+      <div class="list_display">
+        <button class="button">
+          {{ result[0] }}
+        </button>
+      </div>
+      <br>
+
       {% endfor %}
     </main>
   </body>
