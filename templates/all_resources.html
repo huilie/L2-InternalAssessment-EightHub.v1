@@ -54,18 +54,17 @@
         <!-- resource list -->
         {% for resource in resources %}
         <div class="list_display">
-          <a href="{{ url_for('resources', sub_id=resource[0], unit_id=resource[0]) }}">
+          <a href="{{ url_for('resources', resource_id=resource[0])}}">
+            <button class="button_list" type="button">
+              {{ resource[1] }} → {{ resource[2] }}
+            </button>
           </a>
           <p class="list_resources_topic">{{ resource[3] }}</p>
-          <button class="button_list" type="button">
-              {{ resource[1] }} → {{ resource[2] }}
-          </button>
           <p class="">
             Type: {{ resource[5] }} | Author: {{ resource[6] }} | Released: {{ resource[7] }}
           </p>
         </div>
       </form>
-
       <br>
       {% else %}
       <p>No resources found</p>

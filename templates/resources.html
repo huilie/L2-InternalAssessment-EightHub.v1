@@ -41,51 +41,26 @@
       </Ul>
     </header>
     <main>
-<h1>Resources</h1>
-{% for resource in resources %}
-<div class="resource">
-  <h2>
-                {{ resource[1] }}
-
-            </h2>
-
-            <p>
-
-                Author: {{ resource[4] }}
-
-            </p>
-
-            {% if resource[3] == "jpg" or resource[3] == "png" %}
-
-                <img
-
-                    src="{{ url_for('static', filename=resource[2].replace('static/', '')) }}"
-
-                    alt="{{ resource[1] }}"
-
-                    width="500"
-
-                >
-
-            {% elif resource[3] == "pdf" %}
-
-                <iframe
-
-                    src="{{ url_for('static', filename=resource[2].replace('static/', '')) }}"
-
-                    width="800"
-
-                    height="600">
-
-                </iframe>
-
-            {% endif %}
-
-        </div>
-
+      <h1>Resources</h1>
+      <div class="list_display">
+        <h2 class="">{{ resource[1] }}</h2>
+        <p>Author: {{ resource[4] }}</p>
+        <p>Released year: {{ resource[6]}}</p>
         <hr>
+        <br>
+        <br>
+        {% if resource[3] == "jpg" or resource[3] == "png" %}
+        <img class="photo_display" src="{{ url_for('static', filename=resource[2].replace('static/', '')) }}" alt="{{ resource[1] }}">
+        {% elif resource[3] == "pdf" %}
+        <iframe class="pdf_display" src="{{ url_for('static', filename=resource[2].replace('static/', '')) }}"></iframe>
+        {% endif %}
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
 
-    {% endfor %}
+
     </main>
   </body>
 

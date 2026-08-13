@@ -39,9 +39,11 @@
       {% for result in results %}
       <br>
       <div class="list_display">
-        <button class="button">
-          {{ result[0] }}
-        </button>
+        <a href="{{ url_for('resources', resource_id=resources[0])}}" >
+          <button type="submit" class="button">
+            {{ result[3] }}
+          </button>
+        </a>
       </div>
       <br>
 

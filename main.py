@@ -1,3 +1,5 @@
+import resource
+
 from imports import *
 
 app.secret_key = "awdawdawd"
@@ -161,7 +163,7 @@ def homepage():
             searchcursor = consearch.cursor()
             query_search = f"%{search_input}%" # 什么意思
             searchcursor.execute(
-                "SELECT unit, subject, resources_name FROM resources WHERE unit LIKE ? OR subject LIKE ? OR resources_name LIKE ?",
+                "SELECT resources_id, unit, subject, resources_name FROM resources WHERE unit LIKE ? OR subject LIKE ? OR resources_name LIKE ?",
                 (query_search, query_search, query_search)
             )
             search_results = searchcursor.fetchall()
@@ -172,7 +174,6 @@ def homepage():
 
 @app.route("/search_results", methods=['GET', 'POST'])
 def search_results():
-    # if request.method =="POST":
     return render_template("search_results.html")
 
 
@@ -215,37 +216,6 @@ def resources_list(unit_id):
     return render_template("resources_list.html", resources = resources, unit_id = unit_id)
 
 
-
-
-
-
-@app.route("/resources/<int:sub_id>/<int:unit_id>", methods=['GET'])
-def resources(sub_id, unit_id):
-
-    conre = sqlite3.connect('database/database.db')
-    re_cursor = conre.cursor()
-
-    re_cursor.execute(
-        """
-        SELECT resources_id, resources_name, path, type, author, from_link
-        FROM resources
-        WHERE sub_id=? AND unit_id=?
-        """,
-        (sub_id, unit_id)
-    )
-
-    resources = re_cursor.fetchall()
-
-    conre.close()
-
-    return render_template(
-        "resources.html",
-        resources=resources,
-        sub_id=sub_id,
-        unit_id=unit_id
-    )
-
-
 @app.route("/all_resources", methods=['GET', 'POST'])
 def all_resources():
     selected_type = request.args.get("type", "")
@@ -281,40 +251,46 @@ def all_resources():
         )
 
 
-@app.route("/detail_resource/<int:resources_id>")
-def resource(resources_id):
 
-    conre = sqlite3.connect("database/database.db")
+
+# @app.route("/resources/<int:sub_id>/<int:unit_id>", methods=['GET'])
+# def resources(sub_id, unit_id):
+
+#     conre = sqlite3.connect('database/database.db')
+#     re_cursor = conre.cursor()
+
+#     re_cursor.execute(
+#         """
+#         SELECT resources_id, resources_name, path, type, author, from_link
+#         FROM resources
+#         WHERE sub_id=? AND unit_id=?
+#         """,
+#         (sub_id, unit_id)
+#     )
+
+#     resources = re_cursor.fetchall()
+
+#     conre.close()
+
+#     return render_template(
+#         "resources.html",
+#         resources=resources,
+#         sub_id=sub_id,
+#         unit_id=unit_id
+#     )
+
+@app.route("/resources/<int:resource_id>", methods=['GET'])
+def resources(resource_id):
+    conre = sqlite3.connect('database/database.db')
     re_cursor = conre.cursor()
-
-    re_cursor.execute(
-        """
-        SELECT
-            resources_id,
-            subject,
-            unit,
-            resources_name,
-            path,
-            type,
-            author,
-            from_link,
-            released_year
-        FROM resources
-        WHERE resources_id=?
-        """,
-        (resources_id,)
+    re_cursor.execute("SELECT resources_id, resources_name, path, type, author, from_link, released_year FROM resources WHERE resources_id=?",
+                      (resource_id,)
     )
-
-    resource_data = re_cursor.fetchone()
-
+    resource = re_cursor.fetchone()
     conre.close()
-
-    if resource_data is None:
-        return "Resource not found", 404
-
     return render_template(
-        "resource.html",
-        resource=resource_data
+        "resources.html",
+        resource=resource,
     )
 
 

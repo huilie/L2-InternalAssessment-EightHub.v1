@@ -20,13 +20,15 @@
       <h1>Resources list</h1>
       {% for resource in resources %}
       <div class="list_display">
-        <button class="button">
-          {{ resource[1] }}
-          ---
-          Author: 
-          {{ resource[2] }}
-        </button>
-
+        <br>
+        <a href="{{ url_for('resources', resource_id=resource[0])}}">
+          <button class="button">
+            {{ resource[1] }}
+            ---
+            Author: 
+            {{ resource[2] }}
+          </button>
+        </a>
       </div>
       {% endfor %}
     </main>
