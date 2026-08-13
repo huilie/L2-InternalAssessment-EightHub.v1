@@ -39,15 +39,19 @@
       {% for result in results %}
       <br>
       <div class="list_display">
-        <a href="{{ url_for('resources', resource_id=resources[0])}}" >
-          <button type="submit" class="button">
+        <a href="{{ url_for('resources', resource_id=result[0])}}" >
+          <button type="button" class="button">
             {{ result[3] }}
           </button>
         </a>
       </div>
       <br>
-
       {% endfor %}
+      {% if create_password_error %}
+        <p class="error_resource_text">
+          {{resource_error}}
+        </p>
+      {% endif %}
     </main>
   </body>
 

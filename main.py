@@ -56,12 +56,12 @@ def account_create_password():
             if not re.search(r"[A-Za-z]", input_password):
                 return render_template(
                     "account_create_password.html",
-                    create_password_error="your password contain letters"
+                    create_password_error="your password must contain letters"
                 )
             if not re.search(r"[0-9]", input_password):
                 return render_template(
                     "account_create_password.html",
-                    create_password_error="your password contain numbers"
+                    create_password_error="your password must contain numbers"
                 )
             conaccounts = sqlite3.connect('database/database.db')
             accountcursor = conaccounts.cursor()
@@ -159,6 +159,11 @@ def homepage():
     if request.method =="POST":
         if 'Searchbar_q' in request.form:
             search_input = request.form.get('Searchbar_q')
+            if search_input not in search_input:
+                return render_template(
+                    "search_results.html",
+                    error_resource_text="your search bar can't be empty"
+                )
             consearch = sqlite3.connect('database/database.db')
             searchcursor = consearch.cursor()
             query_search = f"%{search_input}%" # 什么意思
