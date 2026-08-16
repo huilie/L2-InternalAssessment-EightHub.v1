@@ -1,15 +1,22 @@
-import resource
-
 from imports import *
+# from imports.py import Flask, request, render_template, redirect, url_for, session, sqlite3, re
 
+
+
+# Flask Session needs secret_key
 app.secret_key = "awdawdawd"
+
+# index page
 @app.route("/", methods=['GET', 'POST'])
 def index():
+        # check submit = next or not 
         if request.form.get("submit") =="next":
+             # if ture, go to account_create
              return render_template("account_create.html")
+        # display index page
         return render_template("index.html")
 
-
+# index page
 @app.route("/account_create", methods=['GET', 'POST'])
 def account_create():
     if "back" in request.form:
@@ -18,12 +25,17 @@ def account_create():
         if 'account_name' in request.form:
             input_name = request.form.get('account_name')
             session["input_name"] = input_name  
-            # 把变量 email 的值保存起来，并命名为 "email"，以后这个用户访问其他页面时都可以取出来
-        if not input_name or ".com" not in input_name:
+            # save the vulme email，and name email to "email", I can take this vulme in next page
+        if not input_name:
                 return render_template(
                     "account_create.html",
-                    create_password_error="pls input email"
+                    create_password_error="Your email address can't be empty"
                 )
+        if ("@" not in input_name or input_name.startswith("@") or input_name.endswith("@") or "@." in input_name or (".com" not in input_name and ".nz" not in input_name)):
+            return render_template(
+                "account_create.html",
+                create_password_error="You must input a correct email address"
+            )
         return redirect(url_for('account_create_password'))
         # 将变量提前储存
     return render_template("account_create.html")
@@ -34,6 +46,7 @@ def account_create_password():
     if "back" in request.form:
          return redirect(url_for("account_create"))
     if request.method == "POST":
+        # 用户不能输入空白，和空格
         if 'account_password' in request.form:
             input_password = request.form.get('account_password')
             ensure_input_password = request.form.get('ensure_account_password')
@@ -41,27 +54,27 @@ def account_create_password():
             if input_password != ensure_input_password:
                 return render_template(
                     "account_create_password.html",
-                    create_password_error="pls check ur password is same"# error feedback
+                    create_password_error="Please check your ensure password is same with your password"# error feedback
                     )
             if not input_password or not ensure_input_password:
                 return render_template(
                     "account_create_password.html",
-                    create_password_error="pls input password"
+                    create_password_error="Your password can not be empty"
                 )
             if len(input_password) < 8:
                 return render_template(
                     "account_create_password.html",
-                    create_password_error="your password must be at least 8 characters"
+                    create_password_error="Your password must be at least 8 characters"
                 )
             if not re.search(r"[A-Za-z]", input_password):
                 return render_template(
                     "account_create_password.html",
-                    create_password_error="your password must contain letters"
+                    create_password_error="Your password must contain letters"
                 )
             if not re.search(r"[0-9]", input_password):
                 return render_template(
                     "account_create_password.html",
-                    create_password_error="your password must contain numbers"
+                    create_password_error="Your password must contain numbers"
                 )
             conaccounts = sqlite3.connect('database/database.db')
             accountcursor = conaccounts.cursor()
@@ -72,7 +85,7 @@ def account_create_password():
             if user:
                 conaccounts.close()
                 return render_template("account_create_password.html" 
-                                       ,create_password_error="This email already exists, pls go back"
+                                       ,create_password_error="This email already exists, please go back"
                                        )
             accountcursor.execute(
                 "INSERT INTO accountinfo (accountemail, accountpassword) VALUES(?,?)", 
@@ -83,7 +96,7 @@ def account_create_password():
         return render_template('homepage.html')
     return render_template('account_create_password.html')
 
-# @app.route
+# 用户不能输入空白，和空格
 
 @app.route("/account", methods=['GET', 'POST'])
 def account():
@@ -105,7 +118,7 @@ def account():
                 conaccounts.close()
                 return render_template("account.html", report_message="Login successful")
              conaccounts.close()
-             return render_template("account.html", report_message="Wrong email or password")
+             return render_template("account.html", report_message="Your email or password is incorrect")
 
         # Change Password
             
@@ -113,7 +126,7 @@ def account():
             email = session.get("email")
             if not email:
                 conaccounts.close()
-                return render_template("account.html", report_message="Pls login first")
+                return render_template("account.html", report_message="Please login your account first")
             old_password = request.form.get("old_password")
             new_password = request.form.get("new_password")
             accountcursor.execute(" SELECT * FROM accountinfo WHERE accountemail=? AND accountpassword=?", 
@@ -122,7 +135,20 @@ def account():
             user = accountcursor.fetchone()
             if not user:
                 conaccounts.close()
-                return render_template("account.html", report_message="Old password is incorrect")
+                return render_template("account.html", report_message="Your original password is incorrect")
+            if len(new_password) < 8:
+                return render_template("account.html",
+                                       report_message="Your password must be at least 8 characters"
+                                       )
+            if not re.search(r"[A-Za-z]", new_password):
+                return render_template("account.html",
+                                       report_message="Your password must contain letters"
+                                       )
+            if not re.search(r"[0-9]", new_password):
+                return render_template("account.html",
+                                       report_message="Your password must contain numbers"
+                                       )
+
             accountcursor.execute("UPDATE accountinfo SET accountpassword=? WHERE accountemail=?", 
                                   (new_password, email)
                 )
@@ -140,7 +166,7 @@ def account():
             user = accountcursor.fetchone()
             if not user:
                 conaccounts.close()
-                return render_template("account.html", report_message="Wrong email or password")
+                return render_template("account.html", report_message="Your email or password is incorrect")
             accountcursor.execute("DELETE FROM accountinfo WHERE accountemail=?",
                                   (email,)
                                   )
@@ -159,11 +185,12 @@ def homepage():
     if request.method =="POST":
         if 'Searchbar_q' in request.form:
             search_input = request.form.get('Searchbar_q')
-            if search_input not in search_input:
+            if not search_input or not search_input.strip():
                 return render_template(
                     "search_results.html",
-                    error_resource_text="your search bar can't be empty"
+                    error_resource_text="Your search bar can't be empty or space"
                 )
+            # 加一个用户不能输入空白，增加搜索范围
             consearch = sqlite3.connect('database/database.db')
             searchcursor = consearch.cursor()
             query_search = f"%{search_input}%" # 什么意思
@@ -255,35 +282,6 @@ def all_resources():
         "all_resources.html", resources=resources, types=types, years=years, selected_type=selected_type, selected_year=selected_year
         )
 
-
-
-
-# @app.route("/resources/<int:sub_id>/<int:unit_id>", methods=['GET'])
-# def resources(sub_id, unit_id):
-
-#     conre = sqlite3.connect('database/database.db')
-#     re_cursor = conre.cursor()
-
-#     re_cursor.execute(
-#         """
-#         SELECT resources_id, resources_name, path, type, author, from_link
-#         FROM resources
-#         WHERE sub_id=? AND unit_id=?
-#         """,
-#         (sub_id, unit_id)
-#     )
-
-#     resources = re_cursor.fetchall()
-
-#     conre.close()
-
-#     return render_template(
-#         "resources.html",
-#         resources=resources,
-#         sub_id=sub_id,
-#         unit_id=unit_id
-#     )
-
 @app.route("/resources/<int:resource_id>", methods=['GET'])
 def resources(resource_id):
     conre = sqlite3.connect('database/database.db')
@@ -297,27 +295,6 @@ def resources(resource_id):
         "resources.html",
         resource=resource,
     )
-
-
-
-
-# @app.route("/resources", methods=['GET', 'POST'])
-# def resources():
-#     if request.method =="POST":
-#          sub_id = request.form.get("sub_id")
-#          unit_id = request.form.get("unit_id")
-#          conre = sqlite3.connect('database/database.db')
-#          re_cursor = conre.cursor()
-#          re_cursor.execute(
-#               "SELECT resources_id, unit, path, author, from_link FROM resources WHERE sub_id=? AND unit_id=?",
-#               (sub_id, unit_id)
-#          )
-#          resources = conre.fetchall()
-#          conre.commit()
-#          conre.close()
-#     return render_template("resources.html", resources=resources, unit_id=unit_id)
-
-
 
 if __name__ == "__main__":
     '''if t'''

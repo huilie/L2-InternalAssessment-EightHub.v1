@@ -100,6 +100,9 @@ https://www.w3schools.com/css/tryit.asp?filename=trycss_navbar_horizontal_respon
     font-size: 180%;
 }
 
+.list_resources_secondary_topic{
+    font-size: 120%;
+}
 
 ___________________________________________
 
@@ -154,14 +157,19 @@ ___________________________________________
 }
 .button_list{
     font-size: 110%;
-    padding: 15px px;
-    border-radius: 5px;
+    padding: 12px 15px;
+    border-radius: 5px
 }
 
 
 .error_text{
     font-size: 20px;
     text-align: center;
+    color: red;
+}
+
+.ip{
+    font-size: 25px;
     color: red;
 }
 

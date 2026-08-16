@@ -36,6 +36,15 @@
       <h1>
         The results about "{{keywords}}" is:
       </h1>
+      <br>
+      <br>
+      <div class="list_display">
+        <p class="list_resources_secondary_topic">
+          If you did find resources that you want, please check your spelling or go to subject pick
+        </p>
+      </div>
+      <br>
+      <br>
       {% for result in results %}
       <br>
       <div class="list_display">
@@ -47,9 +56,9 @@
       </div>
       <br>
       {% endfor %}
-      {% if create_password_error %}
-        <p class="error_resource_text">
-          {{resource_error}}
+      {% if error_resource_text %}
+        <p class="error_text">
+          {{error_resource_text}}
         </p>
       {% endif %}
     </main>

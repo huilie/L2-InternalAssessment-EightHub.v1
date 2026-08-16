@@ -1,8 +1,7 @@
+# this file using for import flask library and variables that going to use around in programm 
+
 from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
-import re
-import logging
-app = Flask (__name__)
+import re # Regular Expression for check users data has correct expression
 
-log = logging.getLogger("awd")
-log.disabled = True
+app = Flask (__name__)

@@ -22,10 +22,10 @@
           <h1>Account page</h1>
           <br>
           <h2>
-            Login password
+            Login your account
           </h2>
-          <input class="input_line" type="email" name="login_email" placeholder="input ur email">
-          <input class="input_line" type="password" name="login_password" placeholder="input ur password">
+          <input class="input_line" type="email" name="login_email" placeholder="Please input your email">
+          <input class="input_line" type="password" name="login_password" placeholder="Please input your password">
           <button class="submit-1" type="submit" name="action" value="login">
             Login
           </button>
@@ -33,10 +33,10 @@
           <br>
           <br>
           <h2>
-            Change password
+            Change your account password
           </h2>
-          <input class="input_line" type="password" name="old_password" placeholder="pls input ur old password">
-          <input class="input_line" type="password" name="new_password" placeholder="pls input ur new password">
+          <input class="input_line" type="password" name="old_password" placeholder="Please input your original password">
+          <input class="input_line" type="password" name="new_password" placeholder="Please input your new password">
           <button class="submit-1" type="submit" name="action" value="change_password">
             Change password
           </button>
@@ -44,15 +44,15 @@
           <br>
           <br>
           <h2>
-            Delete account
+            Delete your account
           </h2>
-          <input class="input_line" type="email" name="ensure_email" placeholder="input ur email">
-          <input class="input_line" type="password" name="delete_password" placeholder="input ur password">
+          <input class="input_line" type="email" name="ensure_email" placeholder="Please input your email">
+          <input class="input_line" type="password" name="delete_password" placeholder="Please input your password">
           <button class="submit-1" type="submit" name="action" value="delete_account">
             Delete Account
           </button>
-          <p>
-            if you don't have account, click here to <a href="{{url_for('account_create')}}">create account</a>
+          <p class="list_resources_secondary_topic">
+            If you don't have account, click here to <a href="{{url_for('account_create')}}">create account</a>
           </p>
         </div>
       </form>

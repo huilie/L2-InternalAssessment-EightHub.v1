@@ -23,52 +23,52 @@
       <br>
         <div class="list_display">
         <!--type -->
-        <label for="type">
-          Type:
-        </label>
-        <select name="type" id="type">
-          <option value="">All</option>
-          {% for type in types %}
-          <option value="{{ type[0] }}" {% if selected_type == type[0] %} selected {% endif %} >
-            {{ type[0] }}
-          </option>
-          {% endfor %}
-        </select>
-        <!--released year -->
-         <label for="released_year">Released Year:</label>
-         <select name="released_year" id="released_year">
-          <option value="">All</option>
-          {% for year in years %}
-          <option value="{{ year[0] }}" {% if selected_year|string == year[0]|string %} selected {% endif %} >
-            {{ year[0] }}
-          </option>
-          {% endfor %}
-        </select>
-        <button type="submit">
-          Filter
-        </button>
-        <br>
+        <div class="list_resources_secondary_topic">
+          <label for="type">
+            Type:
+          </label>
+          <select name="type" id="type">
+            <option value="">All</option>
+            {% for type in types %}
+            <option value="{{ type[0] }}" {% if selected_type == type[0] %} selected {% endif %} >
+              {{ type[0] }}
+            </option>
+            {% endfor %}
+          </select>
+          <!--released year -->
+          <label for="released_year">Released Year:</label>
+          <select name="released_year" id="released_year">
+            <option value="">All</option>
+            {% for year in years %}
+            <option value="{{ year[0] }}" {% if selected_year|string == year[0]|string %} selected {% endif %} >
+              {{ year[0] }}
+            </option>
+            {% endfor %}
+          </select>
+          <button type="submit">
+            Filter
+          </button>
+          <br>
+        </div>
         <br>
         <br>
       </div>
         <!-- resource list -->
         {% for resource in resources %}
         <div class="list_display">
+          <p class="list_resources_topic">{{ resource[3] }}</p>
           <a href="{{ url_for('resources', resource_id=resource[0])}}">
             <button class="button_list" type="button">
               {{ resource[1] }} → {{ resource[2] }}
             </button>
           </a>
-          <p class="list_resources_topic">{{ resource[3] }}</p>
-          <p class="">
+          <p class="list_resources_secondary_topic">
             Type: {{ resource[5] }} | Author: {{ resource[6] }} | Released: {{ resource[7] }}
           </p>
         </div>
+        {% endfor %}
       </form>
       <br>
-      {% else %}
-      <p>No resources found</p>
-      {% endfor %}
     </main>
   </body>
 
